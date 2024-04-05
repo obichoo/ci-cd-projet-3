@@ -24,5 +24,3 @@ how to build a simple web application with user registration, login.
 ![Login page](https://github.com/riad-azz/readme-storage/blob/main/flask-auth-example/login.png?raw=true)
 
 
-
-Open your web browser and navigate to http://localhost:5000 to access the application.
