@@ -3,12 +3,12 @@ pipeline {
     environment {
         ID_GIT = 'obichoo'
         ID_DOCKERHUB = 'obichooooo'
-        IMAGE_NAME = 'ci-cd-projet-2'
+        IMAGE_NAME = 'ci-cd-projet-3'
         IMAGE_TAG = 'latest'
         USER_MAIL = "${MAIL_TO}"
         RENDER_API_TOKEN = credentials('RENDER_API_TOKEN')
         RENDER_SERVICE_ID = 'srv-cogebr821fec73d8j1mg'
-        RENDER_DEPLOY_HOOK_PROJECT_2 = 'https://api.render.com/deploy/srv-cogebr821fec73d8j1mg?key=1m_UtaUWwBQ'
+        RENDER_DEPLOY_HOOK_PROJECT_3 = 'https://api.render.com/deploy/srv-cogips4f7o1s73802310?key=wyoF-AyJX7w'
     }
     stages {
         stage('Build') {
@@ -35,9 +35,9 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        docker run -d -p 8081:8081 -e PORT=8081 --name ${IMAGE_NAME} ${ID_DOCKERHUB}/${IMAGE_NAME}:${IMAGE_TAG}
+                        docker run -d -p 8082:8082 -e PORT=8082 --name ${IMAGE_NAME} ${ID_DOCKERHUB}/${IMAGE_NAME}:${IMAGE_TAG}
                         sleep 5
-                        curl http://172.17.0.1:8081
+                        curl http://172.17.0.1:8082
                     '''
                 }
             }
@@ -57,7 +57,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh "curl ${RENDER_DEPLOY_HOOK_PROJECT_2}"
+                    sh "curl ${RENDER_DEPLOY_HOOK_PROJECT_3}"
                 }
             }
         }
