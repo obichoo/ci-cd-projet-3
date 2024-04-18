@@ -1,33 +1,20 @@
-# Use the official Golang image to create a build artifact.
-# This image is based on Debian and includes Golang installed.
-FROM golang:1.22 as builder
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
 
-# Set the Current Working Directory inside the container
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy go mod and sum files
-COPY go.mod go.sum ./
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
-RUN go mod download
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the source code into the container
-COPY . .
+# Make port 5000 available to the world outside this container
+EXPOSE 8082
 
-# Build the Go app with static linking
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+# Define environment variable
+ENV NAME World
 
-# Start a new stage from scratch
-FROM scratch
-
-# Set the Current Working Directory inside the container
-WORKDIR /root/
-
-# Copy the Pre-built binary file from the previous stage
-COPY --from=builder /app/main .
-
-# Expose port 8081 to the outside world
-EXPOSE 8081
-
-# Command to run the executable
-CMD ["./main"]
+# Run app.py when the container launches
+CMD ["python", "main.py"]
