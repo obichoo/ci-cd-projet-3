@@ -37,7 +37,7 @@ pipeline {
                     sh '''
                         docker run -d -p 8282:8282 -e PORT=8282 --name ${IMAGE_NAME} ${ID_DOCKERHUB}/${IMAGE_NAME}:${IMAGE_TAG}
                         sleep 5
-                        curl http://172.17.0.1:8282
+                        curl http://172.17.0.1:8282 | grep -q "<!DOCTYPE html>"
                     '''
                 }
             }
