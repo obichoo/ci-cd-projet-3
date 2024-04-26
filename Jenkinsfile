@@ -42,7 +42,7 @@ pipeline {
         stage('Artifact') {
             steps {
                 script {
-                    // Logging into Docker Hub 
+                    // Logging into Docker Hub
                     withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_LOGS', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                         sh 'echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin'
                     }
